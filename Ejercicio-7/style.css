@@ -1,0 +1,11 @@
+
+    
+.Div {
+    font-size: 25px;
+    font-style: oblique;
+    color: rgb(68, 161, 185);
+    width: 300px;
+    height: 100px;
+    background-color: rgb(33, 34, 34);
+    display: none;
+}
