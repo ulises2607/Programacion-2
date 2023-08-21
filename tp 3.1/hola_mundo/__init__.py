@@ -2,6 +2,7 @@ from datetime import datetime
 import json
 from flask import Flask, jsonify, request
 from config import Config
+from .auxiliares import binDec
 
 def init_app():
     """Crea y configura la aplicación Flask"""
@@ -36,6 +37,7 @@ def init_app():
         "developers": Config.DEVELOPERS,
         "version": Config.VERSION
         }
+
 
         if about_data is not None:
             return (about_data, 200, {'Content-Type':'application/json'})
@@ -162,7 +164,16 @@ def init_app():
         
         except:
             return {'error': 'Ha ocurrido un error'}, 400
+        #datos = [firstname, lastname, age, dni]
+        #return datos
+    ## Ejercicio 13
+    @app.route('/convert/binary/<string:num>')
+    def binarioadecimal(num):
+        scan = []
+        for i in num.split('.'):
+            scan.append(i)
 
+<<<<<<< HEAD
     # Ejercicio 11
  
     # Function to encode a given keyword to Morse code
@@ -190,5 +201,17 @@ def init_app():
             #     keyword = keyword.replace(c[0], c[1])
             
             return jsonify(encode_to_morse)
+=======
+        try:
+            if len(scan) > 1:
+                return {'response': (binDec(scan[0],scan[1]))}, 200
+            else:
+                return {'response':binDec(scan[0])}, 200
+            
+        except:
+            return {'error': 'Ha ocurrido un error'}, 400
+    
 
     return app
+>>>>>>> 40e9810855dd5d5ca30daab89e28928ff3608f87
+
