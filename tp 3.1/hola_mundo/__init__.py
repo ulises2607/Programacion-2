@@ -1,4 +1,5 @@
 from datetime import datetime
+import json
 from flask import Flask, jsonify, request
 from config import Config
 
@@ -162,5 +163,32 @@ def init_app():
         except:
             return {'error': 'Ha ocurrido un error'}, 400
 
+    # Ejercicio 11
+ 
+    # Function to encode a given keyword to Morse code
+    def encode_to_morse(keyword):
+        encode=[]
+        with open('morse_code.json', 'r') as file:
+            encode_to_morse= json.load(file)['letters']
+            
+            for c in encode_to_morse:
+                keyword = keyword.replace(c[0], c[1])
+
+            # for row in keyword:
+            #     if row == '+':
+            #         encode.append(' ')
+            #     else:
+            #         encode.append(encode_to_morse.get(row, row))
+            # return encode
+
+    @app.route('/encode/<string:keyword>')
+    def route(keyword):
+        with open('./static/morse_code.json', 'r') as file:
+            encode_to_morse= json.load(file)['letters']
+        
+            # for c in encode_to_morse:
+            #     keyword = keyword.replace(c[0], c[1])
+            
+            return jsonify(encode_to_morse)
 
     return app
