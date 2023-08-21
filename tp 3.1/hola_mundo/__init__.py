@@ -143,25 +143,24 @@ def init_app():
             return {'error': 'Ha ocurrido un error'}, 400
 
     # Ejercicio 10
-    @app.route('/format/')
+    @app.route('/format/', methods=['GET'])
     def format():
-        firstname = request.args.get('firstname', default='')
-        lastname = request.args.get('lastname', default='')
-        age = request.args.get('dob', default='')
-        dni = request.args.get('dni', default='')
+        firstname = title(request.args.get('firstname', default=''))
+        lastname = title(request.args.get('lastname', default=''))
+        age = edad(request.args.get('dob', default=''))
+        dni = formatted(request.args.get('dni', default=''))
 
         try:
             datos = {
-                "firstname": title(firstname),
-                "lastname": title(lastname),
-                "age": edad(age)["edad"],
-                "dni": formatted(dni)
+                'firstname': firstname[0]['formatted_word'],
+                'lastname': lastname[0]['formatted_word'],
+                'age': age[0]['edad'],
+                'dni': dni[0]['formatted_dni']
                 }
-            return ( datos, 200, {'Content-Type':'application/json'})
-            #return datos['age']
+            return (datos, 200, {'Content-Type':'application/json'})
+        
         except:
             return {'error': 'Ha ocurrido un error'}, 400
-        #datos = [firstname, lastname, age, dni]
-        #return datos
+
 
     return app
